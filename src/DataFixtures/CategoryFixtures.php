@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-
+//commentaire
 class CategoryFixtures extends Fixture
 {
     public const CATEGORIES = [
