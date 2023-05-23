@@ -1,0 +1,11 @@
+@import "bootstrap/scss/bootstrap";
+@import "_navbar.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Roboto+Mono:wght@100&display=swap');
+
+:root{
+    --bs-primary: #585858;
+    --bs-secondary: #CA0000;
+    --bs-nav-link-color: #000000;
+    --bs-font-sans-serif: 'Roboto Mono', monospace;
+}
