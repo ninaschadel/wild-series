@@ -18,7 +18,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setSynopsis('Des zombies envahissent la terre');
         $program->setCountry('Etats-Unis');
         $program->setYear(2010);
-        $this->addReference('program_WalkingDead', $program);
+        $this->addReference('program_0', $program);
         $manager->persist($program);
 
         $program = new Program();
@@ -27,7 +27,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setSynopsis("Un chef viking Ragnar Lothbrok devient un symbole de bravoure, de conquête et de luttes intestines au sein de l'âge d'or des Vikings.");
         $program->setCountry('Irlande');
         $program->setYear(2013);
-        $this->addReference('program_Vikings', $program);
+        $this->addReference('program_1', $program);
         $manager->persist($program);
 
         $program = new Program();
@@ -36,7 +36,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setSynopsis("Dragon Ball Z suit les aventures de Goku, un puissant guerrier extraterrestre, et de ses alliés alors qu'ils combattent des ennemis redoutables, repoussent les limites de leurs pouvoirs et protègent la Terre contre des menaces intergalactiques.");
         $program->setCountry('Japon');
         $program->setYear(1989);
-        $this->addReference('program_DragonBallZ', $program);
+        $this->addReference('program_2', $program);
         $manager->persist($program);
 
         $program = new Program();
@@ -45,7 +45,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setSynopsis("Dans un monde fantastique et brutal, les familles nobles s'affrontent pour le trône de fer, tandis que des forces surnaturelles menaçantes se réveillent, entraînant des intrigues politiques, des trahisons et des batailles épiques dans la lutte pour le pouvoir suprême.");
         $program->setCountry('Irlande');
         $program->setYear(1996);
-        $this->addReference('program_GameOfThrones', $program);
+        $this->addReference('program_3', $program);
         $manager->persist($program);
 
         $program = new Program();
@@ -54,7 +54,16 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setSynopsis("Dans un monde post-apocalyptique, un jeune garçon mi-humain mi-cerf se lance dans un voyage périlleux à travers des terres dévastées, rencontrant des alliés inattendus et affrontant des dangers impitoyables, dans l'espoir de découvrir l'origine de son existence et de trouver un refuge pour les hybrides comme lui.");
         $program->setCountry('Nouvelle-Zélande');
         $program->setYear(2021);
-        $this->addReference('program_SweetTooth', $program);
+        $this->addReference('program_4', $program);
+        $manager->persist($program);
+
+        $program = new Program();
+        $program->setTitle('En un battement');
+        $program->setCategory($this->getReference('category_Drame'));
+        $program->setSynopsis("Ca parle du trafic d'organes.");
+        $program->setCountry('Colombie');
+        $program->setYear(2022);
+        $this->addReference('program_5', $program);
         $manager->persist($program);
 
         $manager->flush();
@@ -72,11 +81,6 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         }
         $manager->flush();*/
     }
-
-
-
-
-
 
     public function getDependencies()
     {

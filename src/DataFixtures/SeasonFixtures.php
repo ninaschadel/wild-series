@@ -3,37 +3,34 @@
 namespace App\DataFixtures;
 
 use App\Entity\Season;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Faker\Factory;
 
 class SeasonFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $season = new Season();
-        $season->setNumber(1);
-        $season->setProgram($this->getReference('program_WalkingDead'));
-        $season->setYear(2010);
-        $season->setDescription('Invasion de zombie');
-        $this->addReference('season1_WalkingDead', $season);
-        $manager->persist($season);
+        $faker = Factory::create('fr_FR');
 
-        $season = new Season();
-        $season->setNumber(2);
-        $season->setProgram($this->getReference('program_WalkingDead'));
-        $season->setYear(2010);
-        $season->setDescription('Cette saison est basée sur la dégradation inéluctable des rapports humains dans un monde apocalyptique.');
-        $this->addReference('season2_WalkingDead', $season);
-        $manager->persist($season);
+        for($i = 0; $i <= 30; $i++) {
+            $season = new Season();
+            $season->setNumber($i + 1);
+            $season->setYear($faker->year());
+            $season->setDescription($faker->paragraphs(3, true));
+            $this->addReference('season_' . $i, $season);
+            $season->setProgram($this->getReference('program_' . ($i % 6)));
+            $manager->persist($season);
+        }
 
         $manager->flush();
     }
-    public function getDependencies()
+
+    public function getDependencies(): array
     {
         return [
-            ProgramFixtures::class,
+           ProgramFixtures::class,
         ];
     }
-
 }
