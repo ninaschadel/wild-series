@@ -9,9 +9,10 @@
     <h3>Episodes</h3>
     <ul>
         {% for episode in season.episodes %}
+        <a href="{{ path('program_episode_show', {programId: season.program.id, seasonId: season.id, episodeId: episode.id}) }}">
             <li>
-                Épisode {{ episode.number }} - {{ episode.title }}
-            </li>
+                Episode {{ episode.number }} - {{ episode.title }}
+            </li></a>
         {% else %}
             <li>Aucun épisode pour cette saison</li>
         {% endfor %}
