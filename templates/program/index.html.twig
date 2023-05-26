@@ -4,16 +4,25 @@
 
 {% block body %}
 	<h1>Toutes les séries : </h1>
+	<div class="container">
+	<div class="row">
 	{% for program in programs %}
-		<div>
-			<h2>{{ loop.index }} / {{ program.title }}</h2>
-			<h3>Catégorie : {{ program.category.name }}</h3>
-			<p>{{ program.synopsis }}</p>
-			<a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
-		</div>
+	<div class="col-lg-3">
+	<div class="card">
+  <img src="https://fakeimg.pl/350x200/?text={{ program.title }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ loop.index }} / {{ program.title }}</h5>
+	<h6>Catégorie : {{ program.category.name }}</h6>
+    <p class="card-text">{{ program.synopsis }}</p>
+    <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">En savoir plus</a>
+  </div>
+</div>
+</div>
 	{% else %}
 		Aucune série trouvée.
 	{% endfor %}
+	</div>
+	</div>
 
 	<a href="/">
 		Retour à l'accueil

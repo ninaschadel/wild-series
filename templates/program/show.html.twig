@@ -12,18 +12,25 @@
 			<p>Année : {{ program.year }}</p>
 	</div>
 
-		<h2 class="mt-5">Saisons</h2>
-	<ul>
+		<h2 class="mt-5">Toutes les saisons</h2>
+		<div class="container">
+		<div class="row">
 		{% for season in program.seasons %}
-			<li>
-				<a href="{{ path('season_show', {id: season.id}) }}">
-					Saison {{ season.number }}
-				</a>
-			</li>
-		{% else %}
+		<div class="col-lg-3">
+	<div class="card">
+  <img src="https://fakeimg.pl/350x200/?text=Saison {{ season.number }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Saison {{ season.number }}</h5>
+    <p class="card-text">Résumé : {{ season.description }}</p>
+    <a href="{{ path('season_show', {id: season.id}) }}" class="btn btn-primary">Voir les épisodes</a>
+  </div>
+</div>
+</div>
+{% else %}
 			<li>Aucune saison pour cette série</li>
 		{% endfor %}
-	</ul>
+		</div>
+		</div>
 
 	<a href="{{ path('program_index') }}">
 		Retour à la liste des programmes
