@@ -30,11 +30,12 @@ class SeasonCrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $seasonRepository->save($season, true);
+            $this->addFlash('success', 'La saison a été créé !');
 
             return $this->redirectToRoute('app_season_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('season_crud/new.html.twig', [
+        return $this->render('season_crud/new.html.twig', [
             'season' => $season,
             'form' => $form,
         ]);
@@ -60,7 +61,7 @@ class SeasonCrudController extends AbstractController
             return $this->redirectToRoute('app_season_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('season_crud/edit.html.twig', [
+        return $this->render('season_crud/edit.html.twig', [
             'season' => $season,
             'form' => $form,
         ]);
@@ -71,6 +72,7 @@ class SeasonCrudController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$season->getId(), $request->request->get('_token'))) {
             $seasonRepository->remove($season, true);
+            $this->addFlash('danger', 'Saison supprimée');
         }
 
         return $this->redirectToRoute('app_season_crud_index', [], Response::HTTP_SEE_OTHER);

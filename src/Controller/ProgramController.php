@@ -11,14 +11,17 @@ use App\Repository\ProgramRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ProgramController extends AbstractController
 {
     #[Route('/program/', name: 'program_index')]
-    public function index(ProgramRepository $programRepository): Response
+    public function index(ProgramRepository $programRepository, RequestStack $requestStack): Response
     {
+        $session = $requestStack->getSession();
         $programs = $programRepository->findAll();
         return $this->render('program/index.html.twig', [
             'programs' => $programs,
@@ -34,7 +37,9 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted())
         {
             $programRepository->save($program, true);
-            return $this->redirectToRoute('category_index');
+            $this->addFlash('success', 'Le programme a été ajouté avec succès.');
+
+            return $this->redirectToRoute('program_index');
         }
 
         return $this->render('program/new.html.twig', [
