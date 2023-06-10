@@ -30,11 +30,12 @@ class EpisodeCrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episodeRepository->save($episode, true);
+            $this->addFlash('success', "L'épisode a été créé !");
 
             return $this->redirectToRoute('app_episode_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('episode_crud/new.html.twig', [
+        return $this->render('episode_crud/new.html.twig', [
             'episode' => $episode,
             'form' => $form,
         ]);
@@ -56,11 +57,12 @@ class EpisodeCrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $episodeRepository->save($episode, true);
+            $this->addFlash('success', 'L\'épisode a été ajouté avec succès.');
 
             return $this->redirectToRoute('app_episode_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('episode_crud/edit.html.twig', [
+        return $this->render('episode_crud/edit.html.twig', [
             'episode' => $episode,
             'form' => $form,
         ]);
@@ -71,6 +73,7 @@ class EpisodeCrudController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
             $episodeRepository->remove($episode, true);
+            $this->addFlash('danger', 'Episode supprimé');
         }
 
         return $this->redirectToRoute('app_episode_crud_index', [], Response::HTTP_SEE_OTHER);
