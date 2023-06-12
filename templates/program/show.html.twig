@@ -1,36 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}{% endblock %}
+{% block title %}Série #{{ program.id }}
+{% endblock %}
 
 {% block body %}
-   	<div class="media">
+	<div class="media">
 		<img class="align-self-start m-3" src="{{program.poster}}" alt="{{ program.title }} poster">
-			<h1 class="m-3">{{ program.title }}</h1>
-			<p>{{ program.synopsis }}</p>
-			<p>Catégorie : {{ program.category.name }}</p>
-			<p>Pays : {{ program.country }}</p>
-			<p>Année : {{ program.year }}</p>
+		<h1 class="m-3">{{ program.title }}</h1>
+		<p>{{ program.synopsis }}</p>
+		<p>Catégorie :
+			{{ program.category.name }}</p>
+		<p>Pays :
+			{{ program.country }}</p>
+		<p>Année :
+			{{ program.year }}</p>
+	</div>
+	<div>
+		<strong>Acteurs :</strong>
+		<ul>
+			{% for actor in program.actors %}
+			<li>
+				<a href = "{{ path ('actor_show', { id: actor.id }) }}">{{ actor.name }}</a>
+				</li>
+			{% else %}
+				<li>Aucun acteur pour cette série</li>
+			{% endfor %}
+		</ul>
 	</div>
 
-		<h2 class="mt-5">Toutes les saisons</h2>
-		<div class="container">
+	<h2 class="mt-5">Toutes les saisons</h2>
+	<div class="container">
 		<div class="row">
-		{% for season in program.seasons %}
-		<div class="col-lg-3">
-	<div class="card h-100 d-flex flex-column">
-  <img src="https://fakeimg.pl/350x200/?text=Saison {{ season.number }}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Saison {{ season.number }}</h5>
-    <p class="card-text">Résumé : {{ season.description }}</p>
-    <a href="{{ path('season_show', {id: season.id}) }}" class="btn btn-primary">Voir les épisodes</a>
-  </div>
-</div>
-</div>
-{% else %}
-			<li>Aucune saison pour cette série</li>
-		{% endfor %}
+			{% for season in program.seasons %}
+				<div class="col-lg-3">
+					<div class="card h-100 d-flex flex-column">
+						<img src="https://fakeimg.pl/350x200/?text=Saison {{ season.number }}" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Saison
+								{{ season.number }}</h5>
+							<p class="card-text">Résumé :
+								{{ season.description }}</p>
+							<a href="{{ path('season_show', {id: season.id}) }}" class="btn btn-primary">Voir les épisodes</a>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<li>Aucune saison pour cette série</li>
+			{% endfor %}
 		</div>
-		</div>
+	</div>
 
 	<a href="{{ path('program_index') }}">
 		Retour à la liste des programmes
