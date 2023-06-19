@@ -6,10 +6,14 @@ use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
-    /*public static int $numberOfProgram = 1;*/
+    public function __construct(private SluggerInterface $slugger){
+
+    }
+
     public function load(ObjectManager $manager)
     {
         $program = new Program();
@@ -19,6 +23,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setCountry('Etats-Unis');
         $program->setYear(2010);
         $this->addReference('program_0', $program);
+        $slug = $this->slugger->slug($program->getTitle());
+        $program->setSlug($slug);
         $manager->persist($program);
 
         $program = new Program();
@@ -28,6 +34,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setCountry('Irlande');
         $program->setYear(2013);
         $this->addReference('program_1', $program);
+        $slug = $this->slugger->slug($program->getTitle());
+        $program->setSlug($slug);
         $manager->persist($program);
 
         $program = new Program();
@@ -37,6 +45,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setCountry('Japon');
         $program->setYear(1989);
         $this->addReference('program_2', $program);
+        $slug = $this->slugger->slug($program->getTitle());
+        $program->setSlug($slug);
         $manager->persist($program);
 
         $program = new Program();
@@ -46,6 +56,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setCountry('Irlande');
         $program->setYear(1996);
         $this->addReference('program_3', $program);
+        $slug = $this->slugger->slug($program->getTitle());
+        $program->setSlug($slug);
         $manager->persist($program);
 
         $program = new Program();
@@ -55,6 +67,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setCountry('Nouvelle-Zélande');
         $program->setYear(2021);
         $this->addReference('program_4', $program);
+        $slug = $this->slugger->slug($program->getTitle());
+        $program->setSlug($slug);
         $manager->persist($program);
 
         $program = new Program();
@@ -64,22 +78,11 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         $program->setCountry('Colombie');
         $program->setYear(2022);
         $this->addReference('program_5', $program);
+        $slug = $this->slugger->slug($program->getTitle());
+        $program->setSlug($slug);
         $manager->persist($program);
 
         $manager->flush();
-
-
-/*FAUT-IL LE METTRE ? :
-        foreach (self::PROGRAMS as $key => $programData) {
-            $program = new Program();
-            $program->setTitle($programData['title']);
-            $program->setSynopsis($programData['synopsis']);
-            $program->setCategory($this->getReference($programData['category']));
-            $this->addReference('program_' . $key, $program);
-            $manager->persist($program);
-            self::$numberOfProgram++;
-        }
-        $manager->flush();*/
     }
 
     public function getDependencies()
